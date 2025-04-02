@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: salesdataloader
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/salesdb
+    username: postgres
+    password: pass
+  
+  batch:
+    job:
+      enabled: true
+    jdbc:
+      initialize-schema: always
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      mode: always

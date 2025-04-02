@@ -1,5 +1,6 @@
 package in.akashrchandran.nbt.config;
 
+import in.akashrchandran.nbt.tasklet.NewsletterTasklet;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
