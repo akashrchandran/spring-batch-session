@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: FibPrime
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/salesdb
+    username: postgres
+    password: pass
+  
+  batch:
+    job:
+      enabled: true
+    jdbc:
+      initialize-schema: always
+
+fibonacci:
+  number: 1718273897
+prime:
+  number: 1718273897
