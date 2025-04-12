@@ -12,7 +12,7 @@
 	<artifactId>newsletter-batch-tasklet-async</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>newsletter-batch-tasklet-async</name>
-	<description>newsletter-batch-tasklet-async</description>
+	<description>Batch process to send newsletters asynchronously</description>
 	<url/>
 	<licenses>
 		<license/>

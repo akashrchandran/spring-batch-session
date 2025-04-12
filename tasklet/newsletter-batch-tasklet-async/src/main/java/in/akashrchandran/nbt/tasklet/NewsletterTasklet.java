@@ -42,15 +42,10 @@ public class NewsletterTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.info("Starting NewsletterTasklet execution with async processing.");
-        // Load recipients from file
         List<String> recipients = readRecipientsFromFile();
         int totalRecipients = recipients.size();
-
-        // Create a fixed thread pool with size limit
         ExecutorService executor = Executors.newFixedThreadPool(maxConcurrent);
-
         List<CompletableFuture<Void>> allFutures = new ArrayList<>();
-
         // Create async tasks for all recipients
         for (String recipient : recipients) {
             CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
@@ -62,14 +57,7 @@ public class NewsletterTasklet implements Tasklet {
             }, executor);
             allFutures.add(future);
         }
-
-        // Wait for all emails to complete
         CompletableFuture.allOf(allFutures.toArray(new CompletableFuture[0])).join();
-
-        // Update job metrics
-        contribution.incrementWriteCount(totalRecipients);
-
-        // Shutdown the executor service
         executor.shutdown();
         try {
             if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
@@ -103,7 +91,7 @@ public class NewsletterTasklet implements Tasklet {
                         .lines()) {
                     log.info("Successfully loaded recipients from resources: {}", recipientsFilePath);
                     return lines.filter(line -> line != null && !line.isBlank())
-                            .collect(Collectors.toList());
+                            .toList();
                 }
             } else {
                 log.warn("Resource file '{}' does not exist", recipientsFilePath);
